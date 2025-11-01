@@ -1,0 +1,497 @@
+/* GLOBAL STYLES */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* SCREEN MANAGEMENT */
+.screen {
+    display: none;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.screen.active {
+    display: block;
+}
+
+/* BUTTONS */
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.back-btn {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.back-btn:hover {
+    background-color: #f5f5f5;
+}
+
+/* ==================== LANDING SCREEN ==================== */
+.landing-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+.landing-container h1 {
+    text-align: center;
+    margin-bottom: 60px;
+    font-size: 36px;
+    color: #1a1a1a;
+}
+
+.landing-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 30px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.landing-card {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 40px 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.landing-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 4px 8px 20px rgba(0,0,0,0.15);
+    border-color: #2563eb;
+}
+
+.landing-card h2 {
+    font-size: 24px;
+    margin-bottom: 12px;
+    color: #1a1a1a;
+}
+
+.landing-card p {
+    font-size: 15px;
+    color: #666;
+}
+
+/* ==================== PRIMEAGENT 2.0 SCREEN ==================== */
+.primeagent-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.primeagent-header h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #1a1a1a;
+}
+
+.primeagent-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    background-color: #fff;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.mode-btn {
+    background-color: #f5f5f5;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.mode-btn:hover {
+    background-color: #e5e5e5;
+}
+
+.mode-btn.active {
+    background-color: #22c55e;
+    color: white;
+    border-color: #22c55e;
+}
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background-color: #f9f9f9;
+    border-radius: 6px;
+}
+
+.slider-container label {
+    font-size: 13px;
+    color: #666;
+}
+
+#match-slider {
+    width: 120px;
+}
+
+.reporting-options {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.reporting-sub-btn {
+    background-color: #f5f5f5;
+    color: #333;
+    border: 1px solid #ddd;
+    font-size: 13px;
+    padding: 8px 16px;
+}
+
+.reporting-sub-btn:hover {
+    background-color: #e5e5e5;
+}
+
+.reporting-sub-btn.selected {
+    background-color: #2563eb;
+    color: white;
+    border-color: #2563eb;
+}
+
+.upload-panel {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 20px;
+}
+
+.upload-panel h3 {
+    margin-bottom: 16px;
+    font-size: 20px;
+}
+
+.upload-panel input[type="file"] {
+    margin-bottom: 12px;
+    display: block;
+}
+
+.upload-panel p {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+#close-upload {
+    background-color: #f5f5f5;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.chat-history {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    min-height: 400px;
+    max-height: 500px;
+    overflow-y: auto;
+    margin-bottom: 16px;
+}
+
+.chat-message,
+.ai-message {
+    margin-bottom: 16px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    max-width: 80%;
+}
+
+.chat-message {
+    background-color: #2563eb;
+    color: white;
+    margin-left: auto;
+    text-align: right;
+}
+
+.ai-message {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.ai-message strong {
+    display: block;
+    margin-bottom: 4px;
+    color: #2563eb;
+}
+
+.chat-input-container {
+    display: flex;
+    gap: 12px;
+}
+
+#chat-input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+#chat-input:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+#send-btn {
+    background-color: #2563eb;
+    color: white;
+    padding: 12px 32px;
+}
+
+#send-btn:hover {
+    background-color: #1d4ed8;
+}
+
+/* ==================== CRM — PEOPLE SCREEN ==================== */
+.crm-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.crm-header h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #1a1a1a;
+}
+
+.filter-bar {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding: 16px;
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    flex-wrap: wrap;
+}
+
+.filter-item {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #666;
+}
+
+.filter-item:hover {
+    background-color: #f5f5f5;
+}
+
+.filter-item.active {
+    background-color: #2563eb;
+    color: white;
+    font-weight: 500;
+}
+
+.table-container {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #f9f9f9;
+}
+
+th {
+    padding: 14px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+    color: #666;
+    border-bottom: 2px solid #e0e0e0;
+    white-space: nowrap;
+}
+
+td {
+    padding: 14px 12px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+    color: #333;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tr:hover {
+    background-color: #f9f9f9;
+}
+
+.clickable-row td {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.clickable-row td:hover {
+    background-color: #e8f0fe;
+}
+
+/* ==================== LEAD AGGREGATION SCREEN ==================== */
+.lead-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.lead-header h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #1a1a1a;
+}
+
+.lead-summary {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.lead-summary h1 {
+    font-size: 42px;
+    margin-bottom: 8px;
+    color: #1a1a1a;
+}
+
+.lead-summary p {
+    font-size: 18px;
+    color: #666;
+}
+
+.action-select {
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 13px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.action-select:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+.needs-review-row {
+    background-color: #fee;
+}
+
+.needs-review-row:hover {
+    background-color: #fdd;
+}
+
+/* ==================== MODAL ==================== */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    border-radius: 12px;
+    padding: 32px;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.close-modal {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: 300;
+    color: #999;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.close-modal:hover {
+    color: #333;
+}
+
+.modal-content h3 {
+    margin-bottom: 20px;
+    color: #1a1a1a;
+    font-size: 22px;
+}
+
+.modal-content #modal-text {
+    color: #333;
+    line-height: 1.8;
+    font-size: 15px;
+}
+
+.modal-content #modal-text p {
+    margin-bottom: 12px;
+}
+
+.modal-content #modal-text strong {
+    color: #1a1a1a;
+    font-weight: 600;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+    .landing-options {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+    
+    .table-container {
+        overflow-x: scroll;
+    }
+    
+    .primeagent-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .reporting-options {
+        flex-direction: column;
+    }
+}
