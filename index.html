@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Agent Demo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- LANDING SCREEN -->
+    <section id="landing-screen" class="screen active">
+        <div class="landing-container">
+            <h1>Welcome Back, Agent</h1>
+            <div class="landing-options">
+                <!-- Top left: Dashboard -->
+                <div class="landing-card" data-action="dashboard">
+                    <h2>Dashboard</h2>
+                    <p>View the CRM (people).</p>
+                </div>
+                <!-- Top right: PrimeAgent 2.0 -->
+                <div class="landing-card" data-action="primeagent">
+                    <h2>PrimeAgent 2.0</h2>
+                    <p>Chat with the agency AI and your documents.</p>
+                </div>
+                <!-- Bottom left: Reporting -->
+                <div class="landing-card" data-action="reporting">
+                    <h2>Reporting</h2>
+                    <p>Open PrimeAgent 2.0 in reporting mode.</p>
+                </div>
+                <!-- Bottom right: Lead Aggregation -->
+                <div class="landing-card" data-action="lead-aggregation">
+                    <h2>Lead Aggregation</h2>
+                    <p>Review and approve new captured leads.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRIMEAGENT 2.0 SCREEN -->
+    <section id="primeagent-screen" class="screen">
+        <div class="primeagent-container">
+            <div class="primeagent-header">
+                <button class="back-btn" data-back="landing">← Back</button>
+                <h2>PrimeAgent 2.0</h2>
+            </div>
+            
+            <div class="primeagent-controls">
+                <button id="upload-btn" class="mode-btn">Upload</button>
+                <button id="matching-btn" class="mode-btn">Matching</button>
+                <button id="reporting-btn" class="mode-btn">Reporting</button>
+                
+                <div id="matching-slider" class="slider-container" style="display: none;">
+                    <label>Match confidence (%): <span id="match-value">80</span></label>
+                    <input type="range" id="match-slider" min="0" max="100" value="80">
+                </div>
+                
+                <div id="reporting-options" class="reporting-options" style="display: none;">
+                    <button class="reporting-sub-btn" data-report-type="report-generation">Report generation</button>
+                    <button class="reporting-sub-btn" data-report-type="predictive-forecast">Predictive forecast</button>
+                    <button class="reporting-sub-btn" data-report-type="recommendations">Recommendations</button>
+                    <button class="reporting-sub-btn" data-report-type="real-time-performance">Real-time performance</button>
+                </div>
+            </div>
+            
+            <div id="upload-panel" class="upload-panel" style="display: none;">
+                <h3>Upload Document</h3>
+                <input type="file" id="file-input">
+                <p>Upload documents to enhance AI responses with your agency data.</p>
+                <button id="close-upload">Close</button>
+            </div>
+            
+            <div id="chat-history" class="chat-history">
+                <div class="ai-message">
+                    <strong>AI:</strong> Hello! I'm PrimeAgent 2.0. How can I assist you today?
+                </div>
+            </div>
+            
+            <div class="chat-input-container">
+                <input type="text" id="chat-input" placeholder="Type your message...">
+                <button id="send-btn">Send</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CRM — PEOPLE SCREEN -->
+    <section id="crm-people-screen" class="screen">
+        <div class="crm-container">
+            <div class="crm-header">
+                <button class="back-btn" data-back="landing">← Back</button>
+                <h2>CRM — People</h2>
+            </div>
+            
+            <div class="filter-bar">
+                <span class="filter-item active">People</span>
+                <span class="filter-item">New Leads (last 7 days)</span>
+                <span class="filter-item">Hot</span>
+                <span class="filter-item">Recently Active</span>
+            </div>
+            
+            <div class="table-container">
+                <table id="crm-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Contact Information</th>
+                            <th>Property Requirements</th>
+                            <th>Client Qualification</th>
+                            <th>Stage</th>
+                            <th>Compliance Papers</th>
+                            <th>Last Contact / Follow-up</th>
+                            <th>Tag</th>
+                        </tr>
+                    </thead>
+                    <tbody id="crm-table-body">
+                        <tr class="clickable-row" data-row="1">
+                            <td>Maria K.</td>
+                            <td>WhatsApp +30 691 234 5678, maria@ex.com</td>
+                            <td>Buyer — 2BR, center, €350k, parking if possible</td>
+                            <td>Hot</td>
+                            <td>Contacted</td>
+                            <td>ID, KYC</td>
+                            <td>2025-10-30</td>
+                            <td>Buyer</td>
+                        </tr>
+                        <tr>
+                            <td>Nikos P.</td>
+                            <td>Phone +30 694 567 8901, nikos@ex.com</td>
+                            <td>Seller — 3BR apartment, Kolonaki, €500k+</td>
+                            <td>Warm</td>
+                            <td>Viewing</td>
+                            <td>ID, Title deed</td>
+                            <td>2025-10-28</td>
+                            <td>Seller</td>
+                        </tr>
+                        <tr>
+                            <td>Sofia D.</td>
+                            <td>Email sofia.d@example.com, +30 692 345 6789</td>
+                            <td>Buyer — Studio, near metro, max €200k</td>
+                            <td>Cold</td>
+                            <td>New</td>
+                            <td>Missing</td>
+                            <td>2025-10-25</td>
+                            <td>Buyer</td>
+                        </tr>
+                        <tr>
+                            <td>Dimitris A.</td>
+                            <td>WhatsApp +30 697 111 2222, dim.a@ex.com</td>
+                            <td>Landlord — 1BR rental, Pagrati, €800/mo</td>
+                            <td>Hot</td>
+                            <td>Offer</td>
+                            <td>ID, KYC, Tax cert</td>
+                            <td>2025-10-29</td>
+                            <td>Landlord</td>
+                        </tr>
+                        <tr>
+                            <td>Anna M.</td>
+                            <td>Phone +30 693 888 9999, anna.m@ex.com</td>
+                            <td>Tenant — 2BR near university, max €1000/mo</td>
+                            <td>Warm</td>
+                            <td>Contacted</td>
+                            <td>ID</td>
+                            <td>2025-10-27</td>
+                            <td>Tenant</td>
+                        </tr>
+                        <tr>
+                            <td>George T.</td>
+                            <td>Email george.t@example.com, +30 695 444 5555</td>
+                            <td>Investor — Multi-unit building, any area, €2M budget</td>
+                            <td>Hot</td>
+                            <td>Closed</td>
+                            <td>All complete</td>
+                            <td>2025-10-15</td>
+                            <td>Investor</td>
+                        </tr>
+                        <tr>
+                            <td>Katerina L.</td>
+                            <td>WhatsApp +30 698 777 6666, kat.l@ex.com</td>
+                            <td>Buyer — Villa with garden, suburbs, €600k</td>
+                            <td>Warm</td>
+                            <td>Viewing</td>
+                            <td>ID, KYC</td>
+                            <td>2025-10-26</td>
+                            <td>Buyer</td>
+                        </tr>
+                        <tr>
+                            <td>Yannis S.</td>
+                            <td>Phone +30 696 333 4444, yannis@ex.com</td>
+                            <td>Seller — Commercial space, Syntagma, €1.2M</td>
+                            <td>Cold</td>
+                            <td>Lost</td>
+                            <td>Incomplete</td>
+                            <td>2025-09-20</td>
+                            <td>Seller</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- LEAD AGGREGATION SCREEN -->
+    <section id="lead-aggregation-screen" class="screen">
+        <div class="lead-container">
+            <div class="lead-header">
+                <button class="back-btn" data-back="landing">← Back</button>
+                <h2>Lead Aggregation</h2>
+            </div>
+            
+            <div class="lead-summary">
+                <h1><span id="lead-count">3</span> new leads captured</h1>
+                <p>Review and send to CRM</p>
+            </div>
+            
+            <div class="table-container">
+                <table id="lead-table">
+                    <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>Name</th>
+                            <th>Source</th>
+                            <th>Property Requirements</th>
+                            <th>Client Qualification</th>
+                            <th>Stage</th>
+                            <th>Tag</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lead-table-body">
+                        <tr data-lead-id="1">
+                            <td>
+                                <select class="action-select">
+                                    <option value="">▾ Select</option>
+                                    <option value="approve">Approve</option>
+                                    <option value="reject">Reject</option>
+                                    <option value="needs-review">Needs review</option>
+                                </select>
+                            </td>
+                            <td>Eleni P.</td>
+                            <td>Facebook</td>
+                            <td>Buyer — 2BR, center, budget €280k</td>
+                            <td>Warm</td>
+                            <td>New</td>
+                            <td>Buyer</td>
+                        </tr>
+                        <tr data-lead-id="2">
+                            <td>
+                                <select class="action-select">
+                                    <option value="">▾ Select</option>
+                                    <option value="approve">Approve</option>
+                                    <option value="reject">Reject</option>
+                                    <option value="needs-review">Needs review</option>
+                                </select>
+                            </td>
+                            <td>Petros V.</td>
+                            <td>Zillow</td>
+                            <td>Seller — Penthouse, sea view, asking €900k</td>
+                            <td>Hot</td>
+                            <td>New</td>
+                            <td>Seller</td>
+                        </tr>
+                        <tr data-lead-id="3">
+                            <td>
+                                <select class="action-select">
+                                    <option value="">▾ Select</option>
+                                    <option value="approve">Approve</option>
+                                    <option value="reject">Reject</option>
+                                    <option value="needs-review">Needs review</option>
+                                </select>
+                            </td>
+                            <td>Christina F.</td>
+                            <td>Portal</td>
+                            <td>Tenant — 1BR near metro, max €700/mo</td>
+                            <td>Warm</td>
+                            <td>New</td>
+                            <td>Tenant</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODAL FOR CRM CELL DETAILS -->
+    <div id="cell-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Contact Details</h3>
+            <div id="modal-text"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
