@@ -15,7 +15,7 @@
                 <!-- Top left: Dashboard -->
                 <div class="landing-card" data-action="dashboard">
                     <h2>Dashboard</h2>
-                    <p>View the CRM (people).</p>
+                    <p>View the CRM.</p>
                 </div>
                 <!-- Top right: PrimeAgent 2.0 -->
                 <div class="landing-card" data-action="primeagent">
@@ -25,7 +25,7 @@
                 <!-- Bottom left: Reporting -->
                 <div class="landing-card" data-action="reporting">
                     <h2>Reporting</h2>
-                    <p>Open PrimeAgent 2.0 in reporting mode.</p>
+                    <p>Reports Automated.</p>
                 </div>
                 <!-- Bottom right: Lead Aggregation -->
                 <div class="landing-card" data-action="lead-aggregation">
@@ -113,14 +113,14 @@
                     </thead>
                     <tbody id="crm-table-body">
                         <tr class="clickable-row" data-row="1">
-                            <td>Maria K.</td>
-                            <td>WhatsApp +30 691 234 5678, maria@ex.com</td>
-                            <td>Buyer — 2BR, center, €350k, parking if possible</td>
-                            <td>Hot</td>
-                            <td>Contacted</td>
-                            <td>ID, KYC</td>
-                            <td>2025-10-30</td>
-                            <td>Buyer</td>
+                            <td data-col="0">Maria K.</td>
+                            <td data-col="1">WhatsApp +30 691 234 5678, maria@ex.com</td>
+                            <td data-col="2">Buyer — 2BR, center, €350k, parking if possible</td>
+                            <td data-col="3">Hot</td>
+                            <td data-col="4">Contacted</td>
+                            <td data-col="5">ID, KYC</td>
+                            <td data-col="6">2025-10-30</td>
+                            <td data-col="7">Buyer</td>
                         </tr>
                         <tr>
                             <td>Nikos P.</td>
@@ -283,7 +283,7 @@
     <div id="cell-modal" class="modal" style="display: none;">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
-            <h3>Contact Details</h3>
+            <h3 id="modal-title">Details</h3>
             <div id="modal-text"></div>
         </div>
     </div>
