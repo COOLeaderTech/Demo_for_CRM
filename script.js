@@ -277,49 +277,96 @@ function generateAIResponse(userMessage) {
 
 // ==================== CRM — PEOPLE ====================
 
-// Rich data for first person (Maria K.)
-const mariaFullDetails = {
-    fullName: "Maria Karathanasi",
-    contact: "WhatsApp +30 691 234 5678, maria@example.com",
-    context: "Maria is pregnant and they are looking for a family apartment.",
-    requirements: "Buyer — 2BR (or 3BR), safe area, €350k, parking if possible",
-    qualification: "Hot",
-    stage: "Contacted",
-    compliance: "ID, KYC",
-    lastContact: "2025-10-30",
-    tag: "Buyer"
+// Column-specific data for Maria K. (first row)
+const mariaColumnData = {
+    0: { // Name
+        title: "Name",
+        content: `<p><strong>Full Name:</strong> Maria Karathanasi</p>
+                  <p><strong>Nickname:</strong> "Mari"</p>
+                  <p><strong>Note:</strong> Maria is pregnant and they are looking for a family apartment.</p>`
+    },
+    1: { // Contact Information
+        title: "Contact Information",
+        content: `<p><strong>Primary:</strong> WhatsApp +30 691 234 5678</p>
+                  <p><strong>Email:</strong> maria.karathanasi@example.com</p>
+                  <p><strong>Alternative:</strong> Phone +30 210 123 4567 (home)</p>
+                  <p><strong>Preferred Contact:</strong> WhatsApp (9am-7pm weekdays)</p>`
+    },
+    2: { // Property Requirements
+        title: "Property Requirements",
+        content: `<p><strong>Type:</strong> Buyer</p>
+                  <p><strong>Bedrooms:</strong> 2BR (open to 3BR)</p>
+                  <p><strong>Location:</strong> City center, safe neighborhood</p>
+                  <p><strong>Budget:</strong> Up to €350,000</p>
+                  <p><strong>Must-have:</strong> Parking space (if possible)</p>
+                  <p><strong>Nice-to-have:</strong> Near schools, playground, parks</p>
+                  <p><strong>Move-in:</strong> Flexible, within 6 months</p>`
+    },
+    3: { // Client Qualification
+        title: "Client Qualification",
+        content: `<p><strong>Status:</strong> Hot</p>
+                  <p><strong>Financing:</strong> Pre-approved mortgage (€280k)</p>
+                  <p><strong>Additional cash:</strong> €70k available</p>
+                  <p><strong>Motivation:</strong> Very high (expecting baby in 4 months)</p>
+                  <p><strong>Decision maker:</strong> Joint with husband (Kostas K.)</p>`
+    },
+    4: { // Stage
+        title: "Stage",
+        content: `<p><strong>Current Stage:</strong> Contacted</p>
+                  <p><strong>First Contact:</strong> 2025-10-15 (via phone)</p>
+                  <p><strong>Last Interaction:</strong> 2025-10-30 (WhatsApp)</p>
+                  <p><strong>Viewings Scheduled:</strong> 2 properties (Nov 5 & Nov 8)</p>
+                  <p><strong>Next Step:</strong> Show 2BR apartments in Pagrati and Kolonaki areas</p>`
+    },
+    5: { // Compliance Papers
+        title: "Compliance Papers",
+        content: `<p><strong>Submitted:</strong> ID (National ID card copy)</p>
+                  <p><strong>Submitted:</strong> KYC form (completed)</p>
+                  <p><strong>Pending:</strong> Proof of income (requested, awaiting)</p>
+                  <p><strong>Pending:</strong> Bank statement (last 3 months)</p>
+                  <p><strong>Status:</strong> 60% complete</p>`
+    },
+    6: { // Last Contact / Follow-up
+        title: "Last Contact / Follow-up",
+        content: `<p><strong>Last Contact:</strong> 2025-10-30</p>
+                  <p><strong>Method:</strong> WhatsApp message</p>
+                  <p><strong>Discussion:</strong> Confirmed viewing appointments, sent 3 property listings</p>
+                  <p><strong>Next Follow-up:</strong> 2025-11-04 (day before first viewing)</p>
+                  <p><strong>Agent Notes:</strong> Very responsive, asks good questions, serious buyer</p>`
+    },
+    7: { // Tag
+        title: "Tag",
+        content: `<p><strong>Primary Tag:</strong> Buyer</p>
+                  <p><strong>Additional Tags:</strong> First-time buyer, Family, Urgent</p>
+                  <p><strong>Lead Source:</strong> Facebook ad campaign (Oct 2025)</p>
+                  <p><strong>Assigned Agent:</strong> You</p>`
+    }
 };
 
-// Make only row 1 clickable
+// Make only row 1 clickable with column-specific data
 const clickableRow = document.querySelector('.clickable-row[data-row="1"]');
 if (clickableRow) {
     const cells = clickableRow.querySelectorAll('td');
     cells.forEach((cell, index) => {
         cell.addEventListener('click', function() {
-            showRichModal(index);
+            const colIndex = parseInt(this.getAttribute('data-col'));
+            showColumnModal(colIndex);
         });
     });
 }
 
-function showRichModal(columnIndex) {
+function showColumnModal(columnIndex) {
     const modal = document.getElementById('cell-modal');
+    const modalTitle = document.getElementById('modal-title');
     const modalText = document.getElementById('modal-text');
     
-    // Build rich content for Maria
-    const content = `
-        <p><strong>Full Name:</strong> ${mariaFullDetails.fullName}</p>
-        <p><strong>Contact:</strong> ${mariaFullDetails.contact}</p>
-        <p><strong>Context / Note:</strong> ${mariaFullDetails.context}</p>
-        <p><strong>Property Requirements:</strong> ${mariaFullDetails.requirements}</p>
-        <p><strong>Client Qualification:</strong> ${mariaFullDetails.qualification}</p>
-        <p><strong>Stage:</strong> ${mariaFullDetails.stage}</p>
-        <p><strong>Compliance Papers:</strong> ${mariaFullDetails.compliance}</p>
-        <p><strong>Last Contact / Follow-up:</strong> ${mariaFullDetails.lastContact}</p>
-        <p><strong>Tag:</strong> ${mariaFullDetails.tag}</p>
-    `;
+    const columnData = mariaColumnData[columnIndex];
     
-    modalText.innerHTML = content;
-    modal.style.display = 'flex';
+    if (columnData) {
+        modalTitle.textContent = columnData.title;
+        modalText.innerHTML = columnData.content;
+        modal.style.display = 'flex';
+    }
 }
 
 // Close modal
