@@ -136,24 +136,6 @@ button {
     border-color: #22c55e;
 }
 
-.slider-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 12px;
-    background-color: #f9f9f9;
-    border-radius: 6px;
-}
-
-.slider-container label {
-    font-size: 13px;
-    color: #666;
-}
-
-#match-slider {
-    width: 120px;
-}
-
 .reporting-options {
     display: flex;
     gap: 8px;
@@ -243,6 +225,46 @@ button {
     display: block;
     margin-bottom: 4px;
     color: #2563eb;
+}
+
+/* Matching results inside chat */
+.match-results {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.match-group h4 {
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #1a1a1a;
+}
+
+.match-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.match-card {
+    flex: 1 1 30%;
+    min-width: 210px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 13px;
+    line-height: 1.4;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.match-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    border-color: #2563eb;
+    background-color: #f5f7ff;
 }
 
 .chat-input-container {
@@ -495,3 +517,4 @@ tr:hover {
         flex-direction: column;
     }
 }
+
