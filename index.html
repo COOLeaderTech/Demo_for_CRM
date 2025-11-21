@@ -44,23 +44,19 @@
                 <h2>PrimeAgent 2.0</h2>
             </div>
             
-            <div class="primeagent-controls">
-                <button id="upload-btn" class="mode-btn">Upload</button>
-                <button id="matching-btn" class="mode-btn">Matching</button>
-                <button id="reporting-btn" class="mode-btn">Reporting</button>
-                
-                <div id="matching-slider" class="slider-container" style="display: none;">
-                    <label>Match confidence (%): <span id="match-value">80</span></label>
-                    <input type="range" id="match-slider" min="0" max="100" value="80">
-                </div>
-                
-                <div id="reporting-options" class="reporting-options" style="display: none;">
-                    <button class="reporting-sub-btn" data-report-type="report-generation">Report generation</button>
-                    <button class="reporting-sub-btn" data-report-type="predictive-forecast">Predictive forecast</button>
-                    <button class="reporting-sub-btn" data-report-type="recommendations">Recommendations</button>
-                    <button class="reporting-sub-btn" data-report-type="real-time-performance">Real-time performance</button>
-                </div>
-            </div>
+           <div class="primeagent-controls">
+    <button id="upload-btn" class="mode-btn">Upload</button>
+    <button id="matching-btn" class="mode-btn">Matching</button>
+    <button id="reporting-btn" class="mode-btn">Reporting</button>
+    
+    <div id="reporting-options" class="reporting-options" style="display: none;">
+        <button class="reporting-sub-btn" data-report-type="report-generation">Report generation</button>
+        <button class="reporting-sub-btn" data-report-type="predictive-forecast">Predictive forecast</button>
+        <button class="reporting-sub-btn" data-report-type="recommendations">Recommendations</button>
+        <button class="reporting-sub-btn" data-report-type="real-time-performance">Real-time performance</button>
+    </div>
+</div>
+
             
             <div id="upload-panel" class="upload-panel" style="display: none;">
                 <h3>Upload Document</h3>
