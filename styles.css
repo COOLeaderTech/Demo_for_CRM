@@ -227,7 +227,35 @@ button {
     color: #2563eb;
 }
 
-/* Matching results inside chat */
+.chat-input-container {
+    display: flex;
+    gap: 12px;
+}
+
+#chat-input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+#chat-input:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+#send-btn {
+    background-color: #2563eb;
+    color: white;
+    padding: 12px 32px;
+}
+
+#send-btn:hover {
+    background-color: #1d4ed8;
+}
+
+/* MATCH RESULTS (for Matching mode) */
 .match-results {
     margin-top: 12px;
     display: flex;
@@ -257,7 +285,11 @@ button {
     font-size: 13px;
     line-height: 1.4;
     cursor: pointer;
-    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        border-color 0.15s ease,
+        background-color 0.15s ease;
 }
 
 .match-card:hover {
@@ -265,34 +297,6 @@ button {
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
     border-color: #2563eb;
     background-color: #f5f7ff;
-}
-
-.chat-input-container {
-    display: flex;
-    gap: 12px;
-}
-
-#chat-input {
-    flex: 1;
-    padding: 12px 16px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 14px;
-}
-
-#chat-input:focus {
-    outline: none;
-    border-color: #2563eb;
-}
-
-#send-btn {
-    background-color: #2563eb;
-    color: white;
-    padding: 12px 32px;
-}
-
-#send-btn:hover {
-    background-color: #1d4ed8;
 }
 
 /* ==================== CRM — PEOPLE SCREEN ==================== */
@@ -517,4 +521,3 @@ tr:hover {
         flex-direction: column;
     }
 }
-
