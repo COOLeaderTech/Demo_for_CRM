@@ -208,59 +208,116 @@ function addChatMessage(text, sender) {
 }
 
 function generateAIResponse(userMessage) {
-    // Matching mode active
+    const lower = userMessage.toLowerCase();
+
+    // ==================== MATCHING MODE ====================
     if (activeMode === 'matching') {
-        const lower = userMessage.toLowerCase();
         const hasFive = lower.includes('5') || lower.includes('five');
         const hasKid = lower.includes('kid');
+        const hasPutney = lower.includes('putney');
+        const hasCar = lower.includes('car');
 
-        // Special demo behavior: query contains "5/five" and "kid"
+        // 1) Family with 5-year-old kid → London matches
         if (hasFive && hasKid) {
             return `
-I found <strong>5 hot prospect homes</strong>, <strong>3 medium-to-hot</strong>, and <strong>7 medium</strong> prospect homes.
+I found <strong>5 hot prospect homes</strong>, <strong>3 medium-to-hot</strong>, and <strong>7 medium</strong> prospect homes in <strong>London</strong>.
 
 <div class="match-results">
   <div class="match-group">
     <h4>🔥 Hot matches (5)</h4>
     <div class="match-cards">
-      <div class="match-card">2BR apartment • City center • €340k • Near primary school</div>
-      <div class="match-card">2BR apartment • Pagrati • €330k • Quiet street, playground nearby</div>
-      <div class="match-card">3BR apartment • Kallithea • €355k • 5-min walk to park</div>
-      <div class="match-card">2BR + office • Neos Kosmos • €345k • Close to kindergarten</div>
-      <div class="match-card">2BR apartment • Ampelokipi • €348k • Elevator, family building</div>
+      <div class="match-card">2BR flat • Clapham South • £720k • 3-min walk to Northern line, primary school nearby</div>
+      <div class="match-card">2BR maisonette • Putney • £690k • 5-min walk to East Putney (District line), quiet family street</div>
+      <div class="match-card">3BR terraced house • Wimbledon • £750k • Close to primary school, District line access</div>
+      <div class="match-card">2BR flat • Canada Water • £710k • Jubilee line + Overground, large playground by the docks</div>
+      <div class="match-card">2BR flat • Highbury & Islington • £735k • Victoria line, park around the corner</div>
     </div>
   </div>
 
   <div class="match-group">
     <h4>🔥 Medium-to-hot (3)</h4>
     <div class="match-cards">
-      <div class="match-card">2BR apartment • Center • €320k • 12-min from school</div>
-      <div class="match-card">2BR apartment • Mets • €335k • Near playground, older building</div>
-      <div class="match-card">2BR apartment • Kypseli • €310k • Large living room, bus to school</div>
+      <div class="match-card">2BR flat • Battersea • £680k • 10-min bus to tube, riverside park for kids</div>
+      <div class="match-card">2BR flat • Richmond • £760k • Near park and schools, fast train into central London</div>
+      <div class="match-card">3BR flat • Canary Wharf fringe • £740k • DLR + Jubilee, family-friendly building</div>
     </div>
   </div>
 
   <div class="match-group">
     <h4>✨ Medium matches (7)</h4>
     <div class="match-cards">
-      <div class="match-card">2BR apartment • Piraeus • €300k • 20-min commute to center</div>
-      <div class="match-card">1BR + office • Center • €285k • Compact but bright</div>
-      <div class="match-card">3BR apartment • Ilisia • €365k • Needs renovation</div>
-      <div class="match-card">2BR apartment • Sepolia • €295k • New building, fewer schools around</div>
-      <div class="match-card">2BR apartment • Victoria • €280k • Close to metro</div>
-      <div class="match-card">2BR apartment • Kolonos • €290k • Top floor, no elevator</div>
-      <div class="match-card">2BR apartment • Petralona • €305k • Near park, older interior</div>
+      <div class="match-card">2BR flat • Deptford • £630k • Close to Overground, up-and-coming area</div>
+      <div class="match-card">2BR flat • Woolwich • £610k • Elizabeth line nearby, longer commute</div>
+      <div class="match-card">3BR maisonette • Harrow • £590k • Suburban feel, longer ride to central London</div>
+      <div class="match-card">2BR flat • Tottenham Hale • £600k • Victoria line access, modern building</div>
+      <div class="match-card">2BR flat • Lewisham • £620k • DLR + rail, busy high street</div>
+      <div class="match-card">2BR flat • Kentish Town • £705k • Northern line, compact rooms</div>
+      <div class="match-card">2BR flat • Southfields • £650k • District line, slightly older interior</div>
     </div>
   </div>
 </div>
             `;
         }
 
-        // Default matching response if "5"/"five" + "kid" are NOT in the query
-        return `Matching results: Based on your query "${userMessage}", I found 3 relevant properties in our agency documents. The top match is a family-friendly apartment close to schools and parks.`;
+        // 2) Putney → show house near metro line in Putney, London
+        if (hasPutney) {
+            return `
+I found a strong match in <strong>Putney, London</strong> — ideal if you want easy access to the tube.
+
+<div class="match-results">
+  <div class="match-group">
+    <h4>🔥 Featured Putney match</h4>
+    <div class="match-cards">
+      <div class="match-card">
+        3BR terraced house • Putney • £875k<br>
+        • 7-min walk to <strong>East Putney</strong> station on the <strong>District line</strong><br>
+        • Quiet residential road, close to the river<br>
+        • Good access to schools and local high street
+      </div>
+    </div>
+  </div>
+</div>
+            `;
+        }
+
+        // 3) "car" → family has NO car, so we prioritise walking distance to the tube
+        if (hasCar) {
+            return `
+You mentioned the family <strong>doesn't have a car</strong>, so I focused on homes where daily life works fully on foot — especially being close to the tube.
+
+<div class="match-results">
+  <div class="match-group">
+    <h4>🚶 Homes where you don't need a car</h4>
+    <div class="match-cards">
+      <div class="match-card">
+        2BR flat • Stockwell • £710k<br>
+        • 3-min walk to <strong>Stockwell</strong> (Northern & Victoria lines)<br>
+        • Supermarket, pharmacy, and cafés within a 5-min walk<br>
+        • Perfect for commuting without owning a car
+      </div>
+      <div class="match-card">
+        2BR flat • Islington • £735k<br>
+        • Short walk to <strong>Highbury & Islington</strong> (Victoria line & Overground)<br>
+        • Schools, parks, and shops all reachable on foot<br>
+        • Designed for fully public-transport lifestyle
+      </div>
+      <div class="match-card">
+        3BR flat • Canary Wharf area • £740k<br>
+        • 4-min walk to <strong>Canary Wharf</strong> (Jubilee & Elizabeth lines + DLR)<br>
+        • Everything — work, groceries, childcare — within walking distance<br>
+        • Ideal when you don't rely on a car at all
+      </div>
+    </div>
+  </div>
+</div>
+            `;
+        }
+
+        // Default matching response (London context)
+        return `Matching results: Based on your query "${userMessage}", I found several relevant properties in our London portfolio. The top matches balance budget, location, and access to transport.`;
     }
     
-    // Reporting mode active
+    // ==================== REPORTING MODE ====================
     if (activeMode === 'reporting' && selectedReportingMode) {
         switch(selectedReportingMode) {
             case 'report-generation':
@@ -299,7 +356,7 @@ I found <strong>5 hot prospect homes</strong>, <strong>3 medium-to-hot</strong>,
         }
     }
     
-    // Normal mode
+    // ==================== NORMAL MODE ====================
     const normalResponses = [
         "I can help you with that. Our agency has extensive resources on property valuations, market trends, and client management.",
         "Based on the latest market data, I recommend focusing on properties in high-demand areas. Would you like specific neighborhood insights?",
@@ -383,7 +440,7 @@ const mariaColumnData = {
 const clickableRow = document.querySelector('.clickable-row[data-row="1"]');
 if (clickableRow) {
     const cells = clickableRow.querySelectorAll('td');
-    cells.forEach((cell, index) => {
+    cells.forEach((cell) => {
         cell.addEventListener('click', function() {
             const colIndex = parseInt(this.getAttribute('data-col'));
             showColumnModal(colIndex);
@@ -424,7 +481,6 @@ document.querySelectorAll('.action-select').forEach(select => {
     select.addEventListener('change', function() {
         const action = this.value;
         const row = this.closest('tr');
-        const leadId = row.getAttribute('data-lead-id');
         
         if (action === 'approve') {
             approveLead(row);
