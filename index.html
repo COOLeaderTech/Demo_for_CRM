@@ -3,47 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agency Workspace Demo</title>
+    <title>Real Estate Agent Demo</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- GLOBAL TOP BAR -->
-    <header class="top-bar">
-        <div class="top-bar-left">
-            <span class="top-bar-logo">PrimeAgent</span>
-            <span class="top-bar-divider">|</span>
-            <span class="top-bar-app">Agency Workspace</span>
-        </div>
-        <div class="top-bar-right">
-            <span class="top-bar-label">Logged in as:</span>
-            <span class="top-bar-agent">You (Agent)</span>
-        </div>
-    </header>
-
     <!-- LANDING SCREEN -->
     <section id="landing-screen" class="screen active">
         <div class="landing-container">
-            <h1>Your day at a glance</h1>
-            <p class="landing-subtitle">
-                Everything you use every day: clients, new leads, broker reports, and your AI assistant.
-            </p>
+            <h1>Welcome Back, Agent</h1>
             <div class="landing-options">
-                <!-- Top left: Dashboard -->
+                <!-- Top left: Clients & Deals (was Dashboard/CRM) -->
                 <div class="landing-card" data-action="dashboard">
-                    <h2>Clients & Deals</h2>
+                    <h2>Clients and Deals</h2>
                     <p>See your people, stages, and follow-ups.</p>
                 </div>
                 <!-- Top right: PrimeAgent 2.0 -->
                 <div class="landing-card" data-action="primeagent">
-                    <h2>AI Assistant</h2>
+                    <h2>PrimeAgent 2.0</h2>
                     <p>Ask PrimeAgent 2.0 to match buyers, find answers, or build reports.</p>
                 </div>
-                <!-- Bottom left: Reporting -->
+                <!-- Bottom left: Reports -->
                 <div class="landing-card" data-action="reporting">
-                    <h2>Broker Reports</h2>
+                    <h2>Reports</h2>
                     <p>Instant office and team performance summary.</p>
                 </div>
-                <!-- Bottom right: Lead Aggregation -->
+                <!-- Bottom right: New Leads Inbox -->
                 <div class="landing-card" data-action="lead-aggregation">
                     <h2>New Leads Inbox</h2>
                     <p>Review and send new online leads into your CRM.</p>
@@ -56,54 +40,40 @@
     <section id="primeagent-screen" class="screen">
         <div class="primeagent-container">
             <div class="primeagent-header">
-                <button class="back-btn" data-back="landing">← Back to main menu</button>
-                <div>
-                    <h2>PrimeAgent 2.0 — AI Assistant</h2>
-                    <p class="primeagent-subtitle">
-                        Ask about a client, match a buyer to homes, or create a broker/manager report.
-                    </p>
-                </div>
+                <button class="back-btn" data-back="landing">← Back</button>
+                <h2>PrimeAgent 2.0 — AI Assistance</h2>
+                <p class="primeagent-subtitle">
+                    Ask about a client, match a buyer to a home, or create a broker/manager report.
+                </p>
             </div>
             
             <div class="primeagent-controls">
-                <span class="controls-label">What do you want to do?</span>
-                <button id="upload-btn" class="mode-btn">Add documents</button>
-                <button id="matching-btn" class="mode-btn">Match buyers & homes</button>
-                <button id="reporting-btn" class="mode-btn">Broker / Manager reports</button>
+                <button id="upload-btn" class="mode-btn">Add Documents</button>
+                <button id="matching-btn" class="mode-btn">Match Buyers and Homes</button>
+                <button id="reporting-btn" class="mode-btn">Broker/Manager Reports</button>
                 
                 <div id="reporting-options" class="reporting-options" style="display: none;">
-                    <button class="reporting-sub-btn" data-report-type="report-generation">Broker overview</button>
-                    <button class="reporting-sub-btn" data-report-type="predictive-forecast">Forecast</button>
-                    <button class="reporting-sub-btn" data-report-type="recommendations">Next best actions</button>
-                    <button class="reporting-sub-btn" data-report-type="real-time-performance">Live activity</button>
+                    <button class="reporting-sub-btn" data-report-type="broker-overview">Broker Overview</button>
+                    <button class="reporting-sub-btn" data-report-type="forecast">Forecast</button>
+                    <button class="reporting-sub-btn" data-report-type="live-activity">Live Activity</button>
                 </div>
             </div>
             
             <div id="upload-panel" class="upload-panel" style="display: none;">
-                <h3>Add an internal document</h3>
+                <h3>Upload Document</h3>
                 <input type="file" id="file-input">
-                <p>
-                    Upload contracts, checklists, spreadsheets or PDFs so PrimeAgent uses your own agency data.
-                </p>
+                <p>Upload documents to enhance AI responses with your agency data.</p>
                 <button id="close-upload">Close</button>
             </div>
             
             <div id="chat-history" class="chat-history">
                 <div class="ai-message">
-                    <strong>AI:</strong> 
-                    Good morning. I’m your AI assistant. Try things like:<br>
-                    • “Match this family with a 5-year-old kid to London homes.”<br>
-                    • “We have no car, show homes near the tube.”<br>
-                    • “My broker wants a report for this month.”<br>
+                    <strong>AI:</strong> Hello! I'm PrimeAgent 2.0. How can I assist you today?
                 </div>
             </div>
             
             <div class="chat-input-container">
-                <input 
-                    type="text" 
-                    id="chat-input" 
-                    placeholder="Type a question about a client, listing, or broker report..."
-                >
+                <input type="text" id="chat-input" placeholder="Type your message...">
                 <button id="send-btn">Send</button>
             </div>
         </div>
@@ -113,18 +83,15 @@
     <section id="crm-people-screen" class="screen">
         <div class="crm-container">
             <div class="crm-header">
-                <button class="back-btn" data-back="landing">← Back to main menu</button>
-                <div>
-                    <h2>Clients & People</h2>
-                    <p class="crm-subtitle">Quick view of buyers, sellers, tenants and investors in your pipeline.</p>
-                </div>
+                <button class="back-btn" data-back="landing">← Back</button>
+                <h2>CRM — People</h2>
             </div>
             
             <div class="filter-bar">
-                <span class="filter-item active">All people</span>
-                <span class="filter-item">New leads (last 7 days)</span>
+                <span class="filter-item active">People</span>
+                <span class="filter-item">New Leads (last 7 days)</span>
                 <span class="filter-item">Hot</span>
-                <span class="filter-item">Recently active</span>
+                <span class="filter-item">Recently Active</span>
             </div>
             
             <div class="table-container">
@@ -132,13 +99,13 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Contact details</th>
-                            <th>Need / Requirement</th>
-                            <th>Heat</th>
+                            <th>Contact Information</th>
+                            <th>Property Requirements</th>
+                            <th>Client Qualification</th>
                             <th>Stage</th>
-                            <th>Papers</th>
-                            <th>Last contact</th>
-                            <th>Type</th>
+                            <th>Compliance Papers</th>
+                            <th>Last Contact / Follow-up</th>
+                            <th>Tag</th>
                         </tr>
                     </thead>
                     <tbody id="crm-table-body">
@@ -232,18 +199,13 @@
     <section id="lead-aggregation-screen" class="screen">
         <div class="lead-container">
             <div class="lead-header">
-                <button class="back-btn" data-back="landing">← Back to main menu</button>
-                <div>
-                    <h2>New Leads Inbox</h2>
-                    <p class="lead-subtitle">
-                        Quickly approve or reject leads coming from portals, Facebook, and your website.
-                    </p>
-                </div>
+                <button class="back-btn" data-back="landing">← Back</button>
+                <h2>Lead Aggregation</h2>
             </div>
             
             <div class="lead-summary">
-                <h1><span id="lead-count">3</span> new leads to review</h1>
-                <p>Choose what to do and send them into your Clients & Deals.</p>
+                <h1><span id="lead-count">3</span> new leads captured</h1>
+                <p>Review and send to CRM</p>
             </div>
             
             <div class="table-container">
@@ -253,10 +215,10 @@
                             <th>Action</th>
                             <th>Name</th>
                             <th>Source</th>
-                            <th>Need / Requirement</th>
-                            <th>Heat</th>
+                            <th>Property Requirements</th>
+                            <th>Client Qualification</th>
                             <th>Stage</th>
-                            <th>Type</th>
+                            <th>Tag</th>
                         </tr>
                     </thead>
                     <tbody id="lead-table-body">
@@ -264,7 +226,7 @@
                             <td>
                                 <select class="action-select">
                                     <option value="">▾ Select</option>
-                                    <option value="approve">Approve to CRM</option>
+                                    <option value="approve">Approve</option>
                                     <option value="reject">Reject</option>
                                     <option value="needs-review">Needs review</option>
                                 </select>
@@ -280,7 +242,7 @@
                             <td>
                                 <select class="action-select">
                                     <option value="">▾ Select</option>
-                                    <option value="approve">Approve to CRM</option>
+                                    <option value="approve">Approve</option>
                                     <option value="reject">Reject</option>
                                     <option value="needs-review">Needs review</option>
                                 </select>
@@ -296,7 +258,7 @@
                             <td>
                                 <select class="action-select">
                                     <option value="">▾ Select</option>
-                                    <option value="approve">Approve to CRM</option>
+                                    <option value="approve">Approve</option>
                                     <option value="reject">Reject</option>
                                     <option value="needs-review">Needs review</option>
                                 </select>
