@@ -1,7 +1,6 @@
 // ==================== GLOBAL STATE ====================
 let currentScreen = 'landing-screen';
 let activeMode = null; // Can be 'upload', 'matching', or 'reporting'
-let matchConfidence = 80;
 let selectedReportingMode = null;
 
 // ==================== NAVIGATION ====================
@@ -64,7 +63,6 @@ function resetPrimeAgent() {
     document.getElementById('matching-btn').classList.remove('active');
     document.getElementById('reporting-btn').classList.remove('active');
     
-    document.getElementById('matching-slider').style.display = 'none';
     document.getElementById('reporting-options').style.display = 'none';
     document.getElementById('upload-panel').style.display = 'none';
     
@@ -79,7 +77,6 @@ function deactivateAllModes() {
     document.getElementById('matching-btn').classList.remove('active');
     document.getElementById('reporting-btn').classList.remove('active');
     
-    document.getElementById('matching-slider').style.display = 'none';
     document.getElementById('reporting-options').style.display = 'none';
     document.getElementById('upload-panel').style.display = 'none';
     
@@ -125,20 +122,12 @@ document.getElementById('matching-btn').addEventListener('click', function() {
         // Toggle off
         activeMode = null;
         this.classList.remove('active');
-        document.getElementById('matching-slider').style.display = 'none';
     } else {
         // Deactivate others and activate matching
         deactivateAllModes();
         activeMode = 'matching';
         this.classList.add('active');
-        document.getElementById('matching-slider').style.display = 'flex';
     }
-});
-
-// Match slider
-document.getElementById('match-slider').addEventListener('input', function() {
-    matchConfidence = this.value;
-    document.getElementById('match-value').textContent = matchConfidence;
 });
 
 // Reporting button
@@ -221,7 +210,54 @@ function addChatMessage(text, sender) {
 function generateAIResponse(userMessage) {
     // Matching mode active
     if (activeMode === 'matching') {
-        return `Matching results (${matchConfidence}%): Based on your query "${userMessage}", I found 3 relevant properties in our agency documents. The top match is a 2BR apartment in the city center at €${Math.floor(Math.random() * 100 + 300)}k with ${matchConfidence}% confidence. Source: Agency property database.`;
+        const lower = userMessage.toLowerCase();
+        const hasFive = lower.includes('5') || lower.includes('five');
+        const hasKid = lower.includes('kid');
+
+        // Special demo behavior: query contains "5/five" and "kid"
+        if (hasFive && hasKid) {
+            return `
+I found <strong>5 hot prospect homes</strong>, <strong>3 medium-to-hot</strong>, and <strong>7 medium</strong> prospect homes.
+
+<div class="match-results">
+  <div class="match-group">
+    <h4>🔥 Hot matches (5)</h4>
+    <div class="match-cards">
+      <div class="match-card">2BR apartment • City center • €340k • Near primary school</div>
+      <div class="match-card">2BR apartment • Pagrati • €330k • Quiet street, playground nearby</div>
+      <div class="match-card">3BR apartment • Kallithea • €355k • 5-min walk to park</div>
+      <div class="match-card">2BR + office • Neos Kosmos • €345k • Close to kindergarten</div>
+      <div class="match-card">2BR apartment • Ampelokipi • €348k • Elevator, family building</div>
+    </div>
+  </div>
+
+  <div class="match-group">
+    <h4>🔥 Medium-to-hot (3)</h4>
+    <div class="match-cards">
+      <div class="match-card">2BR apartment • Center • €320k • 12-min from school</div>
+      <div class="match-card">2BR apartment • Mets • €335k • Near playground, older building</div>
+      <div class="match-card">2BR apartment • Kypseli • €310k • Large living room, bus to school</div>
+    </div>
+  </div>
+
+  <div class="match-group">
+    <h4>✨ Medium matches (7)</h4>
+    <div class="match-cards">
+      <div class="match-card">2BR apartment • Piraeus • €300k • 20-min commute to center</div>
+      <div class="match-card">1BR + office • Center • €285k • Compact but bright</div>
+      <div class="match-card">3BR apartment • Ilisia • €365k • Needs renovation</div>
+      <div class="match-card">2BR apartment • Sepolia • €295k • New building, fewer schools around</div>
+      <div class="match-card">2BR apartment • Victoria • €280k • Close to metro</div>
+      <div class="match-card">2BR apartment • Kolonos • €290k • Top floor, no elevator</div>
+      <div class="match-card">2BR apartment • Petralona • €305k • Near park, older interior</div>
+    </div>
+  </div>
+</div>
+            `;
+        }
+
+        // Default matching response if "5"/"five" + "kid" are NOT in the query
+        return `Matching results: Based on your query "${userMessage}", I found 3 relevant properties in our agency documents. The top match is a family-friendly apartment close to schools and parks.`;
     }
     
     // Reporting mode active
