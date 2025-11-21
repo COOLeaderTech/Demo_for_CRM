@@ -164,8 +164,8 @@ document.getElementById('chat-history').addEventListener('click', function (e) {
         const action = e.target.getAttribute('data-action');
         if (action === 'send-manager') {
             e.target.disabled = true;
-            e.target.textContent = 'Sent to Manager';
-            addChatMessage('Report sent to manager from your AI in seconds.', 'ai');
+            e.target.textContent = 'Sent to manager';
+            addChatMessage('I’ve noted this report as sent to your broker/manager.', 'ai');
         } else if (action === 'regenerate-report') {
             const newReport = generateBrokerReport(true);
             addChatMessage(newReport, 'ai', true);
@@ -185,7 +185,7 @@ function sendMessage() {
     setTimeout(() => {
         const aiResponse = generateAIResponse(message);
         addChatMessage(aiResponse, 'ai', true);
-    }, 400);
+    }, 350);
 }
 
 function addChatMessage(text, sender, isHtml = false) {
@@ -197,11 +197,7 @@ function addChatMessage(text, sender, isHtml = false) {
         messageDiv.textContent = text;
     } else {
         messageDiv.className = 'ai-message';
-        if (isHtml) {
-            messageDiv.innerHTML = `<strong>AI:</strong> ${text}`;
-        } else {
-            messageDiv.innerHTML = `<strong>AI:</strong> ${text}`;
-        }
+        messageDiv.innerHTML = `<strong>AI:</strong> ${text}`;
     }
 
     chatHistory.appendChild(messageDiv);
@@ -214,9 +210,9 @@ function generateAIResponse(userMessage) {
 
     // -------- MATCHING MODE (PrimeAgent Matching demo) --------
     if (activeMode === 'matching') {
-        const hasFive = lower.includes('5') || lower.includes('five');      // case 1
-        const hasPutney = lower.includes('putney') || lower.includes('patney'); // case 3
-        const hasCar = lower.includes('car');                               // case 2
+        const hasFive = lower.includes('5') || lower.includes('five');      // Case 1
+        const hasPutney = lower.includes('putney') || lower.includes('patney'); // Case 3
+        const hasCar = lower.includes('car');                               // Case 2
 
         // Priority: five -> putney -> car
 
@@ -246,7 +242,7 @@ I found <strong>5 hot prospect homes</strong>, <strong>3 medium-to-hot</strong>,
       <div class="match-card">
         2BR + study • Clapham South • £745k<br>
         • 6-min walk to local primary<br>
-        • Allocated parking space in gated courtyard<br>
+        • Allocated parking in gated courtyard<br>
         • Easy access to Northern line for parents’ commute
       </div>
       <div class="match-card">
@@ -307,18 +303,18 @@ I found <strong>5 hot prospect homes</strong>, <strong>3 medium-to-hot</strong>,
         // Case 3: Putney / Patney → close to tube line serving Putney, no parking
         if (hasPutney) {
             return `
-You mentioned <strong>Putney</strong>, so I zoomed into a home that works perfectly without a car — right next to the tube line that serves Putney directly.
+You mentioned <strong>Putney</strong>, so I zoomed into a home that works well without a car — right next to the tube line that serves the Putney area.
 
 <div class="match-results">
   <div class="match-group">
-    <h4>🚶 Featured Putney-area match (no car lifestyle)</h4>
+    <h4>🚶 Putney-area match (no-car lifestyle)</h4>
     <div class="match-cards">
       <div class="match-card">
         2BR flat • Putney / East Putney • £780k<br>
         • About 5–7 minutes on foot to <strong>East Putney</strong> on the <strong>District line</strong><br>
-        • Direct District line connection serving the Putney area<br>
+        • Direct District line connection through the Putney area<br>
         • Supermarkets, cafés, and schools all walkable<br>
-        • <strong>No dedicated parking</strong> — you’re meant to live by tube and on foot here
+        • <strong>No dedicated parking</strong> — built for tube and walking
       </div>
     </div>
   </div>
@@ -329,7 +325,7 @@ You mentioned <strong>Putney</strong>, so I zoomed into a home that works perfec
         // Case 2: car → no-car lifestyle, tube + walkability, no parking
         if (hasCar) {
             return `
-You now brought up the word <strong>car</strong>, so I’m showing you the opposite: what happens when the family lives as if they have <strong>no car at all</strong> — everything built around the tube and walking, with no money wasted on parking.
+You brought up the word <strong>car</strong>, so here’s the flip side: what it looks like if the family lives as if they have <strong>no car at all</strong> — everything built around the tube and walking, with no money tied up in parking.
 
 <div class="match-results">
   <div class="match-group">
@@ -369,46 +365,45 @@ You now brought up the word <strong>car</strong>, so I’m showing you the oppos
 
     if (activeMode === 'reporting') {
         if (wantsBrokerReport || wantsRegenerate || selectedReportingMode === 'report-generation') {
-            // true → "regenerated" variant
             return generateBrokerReport(wantsRegenerate);
         }
 
         if (selectedReportingMode === 'predictive-forecast') {
-            return `<strong>Q4 2025 Forecast:</strong><br>
-                Predicted deals: 15–18<br>
-                Expected revenue: €3.1M–€3.5M<br>
-                Market trend: Upward momentum in luxury segment<br>
-                Hot neighbourhoods: Kolonaki (+12%), Kifisia (+8%)<br>
-                Recommended action: Increase inventory in premium locations`;
+            return `<strong>Q4 2025 forecast (office level):</strong><br>
+                • Predicted deals: 15–18<br>
+                • Expected closed volume: €3.1M–€3.5M<br>
+                • Trend: Upward in mid- to high-end stock<br>
+                • Strong areas: Kolonaki (+12%), Kifisia (+8%)<br>
+                • Focus: secure inventory and protect today’s pipeline.`;
         }
 
         if (selectedReportingMode === 'recommendations') {
-            return `<strong>Strategic Recommendations:</strong><br>
-                1. Follow up with 8 warm leads from last week<br>
-                2. Schedule property viewings for 3 high-priority buyers<br>
-                3. Review pricing on 2 listings (market adjustment needed)<br>
-                4. Contact past clients for referrals (23 eligible)<br>
-                5. Double-check compliance on 4 near-closing deals`;
+            return `<strong>Next best actions for the team:</strong><br>
+                1. Call back 8 warm leads from last week with no viewing yet.<br>
+                2. Book viewings for 3 high-priority buyers who opened your emails.<br>
+                3. Adjust price or marketing on 2 long-days-on-market listings.<br>
+                4. Ask 5 happy clients for referrals this week.<br>
+                5. Double-check compliance on 4 deals close to signing.`;
         }
 
         if (selectedReportingMode === 'real-time-performance') {
-            return `<strong>Current Status (Live):</strong><br>
-                Active conversations: 5<br>
-                Scheduled viewings today: 3<br>
-                Hot leads requiring immediate action: 2<br>
-                Pending offers: 4<br>
-                Documents awaiting signature: 1<br>
-                System status: All integrations operational`;
+            return `<strong>Live activity snapshot:</strong><br>
+                • Active conversations: 5<br>
+                • Viewings today: 3<br>
+                • Hot leads needing a call now: 2<br>
+                • Pending offers: 4<br>
+                • Docs waiting for signature: 1<br>
+                • System status: All integrations running normally.`;
         }
     }
 
     // -------- NORMAL MODE --------
     const normalResponses = [
-        "I can help you with that. Our agency has resources on property valuations, market trends, and client management.",
-        "Based on recent market data, I’d focus on high-demand areas first. Do you want neighbourhood-level insights?",
-        "Let me search our document base and CRM data for the most relevant information on that.",
-        "Great question. I can break down the numbers and show you what’s actually happening in your pipeline.",
-        "I can assist with property matching, reporting for your broker, and lead follow-up. What should we tackle first?"
+        "I can help you match buyers to homes, prepare a quick broker report, or check follow-ups. What do you want to see first?",
+        "Tell me about the client or listing and I’ll pull out the key details for you.",
+        "You can say things like “my broker wants a monthly report” or “match this buyer with 2BRs near the metro”.",
+        "I can summarise your pipeline, highlight hot leads, and show what to focus on this week.",
+        "Ask me about any client, deal, or area and I’ll give you a clear, simple answer."
     ];
 
     return normalResponses[Math.floor(Math.random() * normalResponses.length)];
@@ -416,7 +411,6 @@ You now brought up the word <strong>car</strong>, so I’m showing you the oppos
 
 // Generate broker / manager report (variant=false → first version, true → regenerated)
 function generateBrokerReport(variant = false) {
-    // Two slightly different sets of numbers / wording
     const v = variant ? 2 : 1;
 
     const metrics = v === 1 ? {
@@ -426,13 +420,13 @@ function generateBrokerReport(variant = false) {
         volume: '€6.2M',
         volumeDelta: '+9%',
         newLeads: '74',
-        newLeadsDelta: 'Lead volume stable',
+        newLeadsDelta: 'Lead volume steady',
         avgResponse: '1h 42m',
         avgResponseHint: 'Down from 3h 10m — faster follow-up',
         convRate: '19%',
         convHint: 'Up from 16% — better qualification',
         pipeline: '€4.5M',
-        pipelineHint: '€1.8M expected to close in next 45 days'
+        pipelineHint: 'About €1.8M likely to close in the next 45 days'
     } : {
         period: 'This month so far',
         closedDeals: '21',
@@ -444,16 +438,16 @@ function generateBrokerReport(variant = false) {
         avgResponse: '1h 25m',
         avgResponseHint: 'Consistently under 2 hours all month',
         convRate: '20%',
-        convHint: 'Stable, above office target (18%)',
+        convHint: 'Above office target (18%)',
         pipeline: '€4.9M',
-        pipelineHint: '€2.1M likely to close inside 45 days'
+        pipelineHint: 'About €2.1M likely to close inside 45 days'
     };
 
     return `
 <div class="report-block">
   <div class="report-header">
-    <h3>Broker Overview — ${metrics.period}</h3>
-    <p>Instant report built from listings, CRM activity, and deals — ready for your broker/manager in seconds.</p>
+    <h3>Broker / Manager overview — ${metrics.period}</h3>
+    <p>This report is built automatically from your CRM activity and deals, ready to email or discuss in your next meeting.</p>
   </div>
 
   <div class="report-metrics-grid">
@@ -463,7 +457,7 @@ function generateBrokerReport(variant = false) {
       <span class="report-metric-hint">${metrics.closedDelta}</span>
     </div>
     <div class="report-metric">
-      <span class="report-metric-label">Sales volume</span>
+      <span class="report-metric-label">Closed volume</span>
       <span class="report-metric-value">${metrics.volume}</span>
       <span class="report-metric-hint">${metrics.volumeDelta}</span>
     </div>
@@ -473,7 +467,7 @@ function generateBrokerReport(variant = false) {
       <span class="report-metric-hint">${metrics.newLeadsDelta}</span>
     </div>
     <div class="report-metric">
-      <span class="report-metric-label">Avg. response time</span>
+      <span class="report-metric-label">Average response time</span>
       <span class="report-metric-value">${metrics.avgResponse}</span>
       <span class="report-metric-hint">${metrics.avgResponseHint}</span>
     </div>
@@ -492,33 +486,33 @@ function generateBrokerReport(variant = false) {
   <div class="report-section">
     <h4>Agent highlights</h4>
     <ul>
-      <li><strong>Maria K.</strong> — 6 closed deals, €1.9M volume, 1h avg. response.</li>
+      <li><strong>Maria K.</strong> — 6 closed deals, €1.9M volume, ~1h average response time.</li>
       <li><strong>Nikos P.</strong> — 4 listings taken, strong listing-to-meeting ratio.</li>
-      <li><strong>Team overall</strong> — response time and conversion trending in the right direction.</li>
+      <li><strong>Team overall</strong> — response time and conversion both improving.</li>
     </ul>
   </div>
 
   <div class="report-section">
     <h4>Opportunities for the next 30 days</h4>
     <ul>
-      <li>Prioritise 9 hot leads with no viewing scheduled yet.</li>
-      <li>Revisit 5 long-days-on-market listings with price or marketing refresh.</li>
-      <li>Double down on top 2 lead sources; they generate most closed volume.</li>
+      <li>Prioritise 9 hot leads with no viewing booked yet.</li>
+      <li>Revisit 5 older listings (price or marketing refresh recommended).</li>
+      <li>Lean into the top 2 lead sources that bring most closed volume.</li>
     </ul>
   </div>
 
   <div class="report-section">
-    <h4>Broker-level notes</h4>
+    <h4>Notes for the broker / manager</h4>
     <ul>
-      <li>The team is above target on volume and conversion; risk is lead consistency.</li>
-      <li>Faster follow-up is clearly linked to higher close rate — keep under 2 hours.</li>
-      <li>Focus next week: protect pipeline and clean up stalled opportunities.</li>
+      <li>The office is ahead on volume and conversion; risk is keeping the lead flow consistent.</li>
+      <li>Fast follow-up is clearly tied to deals — keep response time under 2 hours where possible.</li>
+      <li>Next week’s focus: protect the hot pipeline and clean up stalled opportunities.</li>
     </ul>
   </div>
 
   <div class="report-actions">
-    <button class="report-action-btn" data-action="send-manager">Send to Manager</button>
-    <button class="report-action-btn secondary" data-action="regenerate-report">Regenerate Report</button>
+    <button class="report-action-btn" data-action="send-manager">Send to manager</button>
+    <button class="report-action-btn secondary" data-action="regenerate-report">Regenerate report</button>
   </div>
 </div>
 `;
@@ -528,29 +522,29 @@ function generateBrokerReport(variant = false) {
 const mariaColumnData = {
     0: {
         title: "Name",
-        content: `<p><strong>Full Name:</strong> Maria Karathanasi</p>
+        content: `<p><strong>Full name:</strong> Maria Karathanasi</p>
                   <p><strong>Nickname:</strong> "Mari"</p>
                   <p><strong>Note:</strong> Maria is pregnant and they are looking for a family apartment.</p>`
     },
     1: {
-        title: "Contact Information",
+        title: "Contact details",
         content: `<p><strong>Primary:</strong> WhatsApp +30 691 234 5678</p>
                   <p><strong>Email:</strong> maria.karathanasi@example.com</p>
                   <p><strong>Alternative:</strong> Phone +30 210 123 4567 (home)</p>
-                  <p><strong>Preferred Contact:</strong> WhatsApp (9am–7pm weekdays)</p>`
+                  <p><strong>Preferred contact:</strong> WhatsApp (09:00–19:00)</p>`
     },
     2: {
-        title: "Property Requirements",
+        title: "Need / Requirement",
         content: `<p><strong>Type:</strong> Buyer</p>
                   <p><strong>Bedrooms:</strong> 2BR (open to 3BR)</p>
-                  <p><strong>Location:</strong> City center, safe neighborhood</p>
+                  <p><strong>Location:</strong> City centre, safe neighbourhood</p>
                   <p><strong>Budget:</strong> Up to €350,000</p>
                   <p><strong>Must-have:</strong> Parking space (if possible)</p>
                   <p><strong>Nice-to-have:</strong> Near schools, playground, parks</p>
-                  <p><strong>Move-in:</strong> Flexible, within 6 months</p>`
+                  <p><strong>Move-in:</strong> Within 6 months</p>`
     },
     3: {
-        title: "Client Qualification",
+        title: "Heat",
         content: `<p><strong>Status:</strong> Hot</p>
                   <p><strong>Financing:</strong> Pre-approved mortgage (€280k)</p>
                   <p><strong>Additional cash:</strong> €70k available</p>
@@ -559,34 +553,34 @@ const mariaColumnData = {
     },
     4: {
         title: "Stage",
-        content: `<p><strong>Current Stage:</strong> Contacted</p>
-                  <p><strong>First Contact:</strong> 2025-10-15 (via phone)</p>
-                  <p><strong>Last Interaction:</strong> 2025-10-30 (WhatsApp)</p>
-                  <p><strong>Viewings Scheduled:</strong> 2 properties (Nov 5 & Nov 8)</p>
-                  <p><strong>Next Step:</strong> Show 2BR apartments in Pagrati and Kolonaki areas</p>`
+        content: `<p><strong>Current stage:</strong> Contacted</p>
+                  <p><strong>First contact:</strong> 2025-10-15 (phone)</p>
+                  <p><strong>Last interaction:</strong> 2025-10-30 (WhatsApp)</p>
+                  <p><strong>Viewings scheduled:</strong> 2 properties (Nov 5 & Nov 8)</p>
+                  <p><strong>Next step:</strong> Show 2BR apartments in Pagrati and Kolonaki</p>`
     },
     5: {
-        title: "Compliance Papers",
-        content: `<p><strong>Submitted:</strong> ID (National ID card copy)</p>
+        title: "Papers",
+        content: `<p><strong>Submitted:</strong> ID (national ID card copy)</p>
                   <p><strong>Submitted:</strong> KYC form (completed)</p>
-                  <p><strong>Pending:</strong> Proof of income (requested, awaiting)</p>
+                  <p><strong>Pending:</strong> Proof of income</p>
                   <p><strong>Pending:</strong> Bank statement (last 3 months)</p>
-                  <p><strong>Status:</strong> 60% complete</p>`
+                  <p><strong>Status:</strong> About 60% complete</p>`
     },
     6: {
-        title: "Last Contact / Follow-up",
-        content: `<p><strong>Last Contact:</strong> 2025-10-30</p>
+        title: "Last contact / follow-up",
+        content: `<p><strong>Last contact:</strong> 2025-10-30</p>
                   <p><strong>Method:</strong> WhatsApp message</p>
-                  <p><strong>Discussion:</strong> Confirmed viewing appointments, sent 3 property listings</p>
-                  <p><strong>Next Follow-up:</strong> 2025-11-04 (day before first viewing)</p>
-                  <p><strong>Agent Notes:</strong> Very responsive, asks good questions, serious buyer</p>`
+                  <p><strong>Summary:</strong> Confirmed viewing appointments, sent 3 listings</p>
+                  <p><strong>Next follow-up:</strong> 2025-11-04 (day before first viewing)</p>
+                  <p><strong>Agent notes:</strong> Very responsive, serious buyer</p>`
     },
     7: {
-        title: "Tag",
-        content: `<p><strong>Primary Tag:</strong> Buyer</p>
-                  <p><strong>Additional Tags:</strong> First-time buyer, Family, Urgent</p>
-                  <p><strong>Lead Source:</strong> Facebook ad campaign (Oct 2025)</p>
-                  <p><strong>Assigned Agent:</strong> You</p>`
+        title: "Type / tags",
+        content: `<p><strong>Type:</strong> Buyer</p>
+                  <p><strong>Tags:</strong> First-time buyer, Family, Urgent</p>
+                  <p><strong>Lead source:</strong> Facebook ad campaign (Oct 2025)</p>
+                  <p><strong>Assigned agent:</strong> You</p>`
     }
 };
 
@@ -652,7 +646,7 @@ function approveLead(row) {
     const stage = cells[5].textContent;
     const tag = cells[6].textContent;
 
-    const contactInfo = `Source: ${source}, awaiting contact details`;
+    const contactInfo = `Source: ${source}, waiting to be contacted`;
 
     const crmTableBody = document.getElementById('crm-table-body');
     const newRow = document.createElement('tr');
